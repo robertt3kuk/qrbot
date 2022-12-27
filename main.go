@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
+	"github.com/gin-gonic/gin"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/joho/godotenv"
 	qrcode "github.com/skip2/go-qrcode"
@@ -12,6 +14,7 @@ import (
 func main() {
 	godotenv.Load()
 
+	go Ginner()
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TGAPI"))
 	if err != nil {
 		log.Panic(err)
@@ -39,4 +42,10 @@ func main() {
 			bot.Send(msg)
 		}
 	}
+}
+func Ginner() {
+	s := gin.Default()
+	fmt.Println("runnings")
+	s.Run(":8080")
+
 }
